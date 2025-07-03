@@ -1,0 +1,25 @@
+{
+  "name": "3d-solar-system",
+  "version": "1.0.0",
+  "description": "Interactive 3D Solar System built with Three.js",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "three": "^0.158.0"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  },
+  "keywords": ["threejs", "solar-system", "3d", "visualization", "webgl", "planets"],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/3d-solar-system.git"
+  },
+  "homepage": "https://your-solar-system.vercel.app"
+}

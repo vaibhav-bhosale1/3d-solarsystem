@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Solar System - Three.js Simulation</title>
+    <meta name="description" content="Interactive 3D solar system with real-time speed controls and stunning visual effects">
+    <link rel="stylesheet" href="src/styles/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="title">3D Solar System</h1>
+                <p class="subtitle">Interactive Three.js Simulation</p>
+            </div>
+        </header>
+
+        <!-- Main Canvas Container -->
+        <main class="canvas-container">
+            <canvas id="solar-canvas"></canvas>
+            
+            <!-- Loading Screen -->
+            <div class="loading-screen" id="loading-screen">
+                <div class="loading-spinner"></div>
+                <p>Initializing Solar System...</p>
+            </div>
+
+            <!-- Performance Stats -->
+            <div class="stats-overlay" id="stats-overlay">
+                <div class="stat-item">
+                    <span class="stat-label">FPS:</span>
+                    <span class="stat-value" id="fps-value">60</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Planets:</span>
+                    <span class="stat-value">8</span>
+                </div>
+            </div>
+        </main>
+
+        <!-- Control Panel -->
+        <aside class="control-panel" id="control-panel">
+            <div class="panel-header">
+                <h2>Controls</h2>
+                <button class="panel-toggle" id="panel-toggle" aria-label="Toggle control panel">
+                    <span class="toggle-icon"></span>
+                </button>
+            </div>
+
+            <div class="panel-content">
+                <!-- Animation Controls -->
+                <section class="control-group">
+                    <h3>Animation</h3>
+                    <div class="control-item">
+                        <label for="global-speed">Global Speed</label>
+                        <div class="slider-container">
+                            <input type="range" id="global-speed" min="0" max="5" step="0.1" value="1" class="slider">
+                            <span class="slider-value" id="global-speed-value">1.0x</span>
+                        </div>
+                    </div>
+
+                    <div class="control-item">
+                        <button class="control-button" id="play-pause-btn">Pause</button>
+                        <button class="control-button secondary" id="reset-btn">Reset</button>
+                    </div>
+                </section>
+
+                <!-- Planet Speed Controls -->
+                <section class="control-group">
+                    <h3>Planet Speeds</h3>
+                    
+                    <div class="control-item">
+                        <label for="mercury-speed">Mercury</label>
+                        <div class="slider-container">
+                            <input type="range" id="mercury-speed" min="0" max="3" step="0.1" value="1" class="slider">
+                            <span class="slider-value" id="mercury-speed-value">1.0x</span>
+                        </div>
+                    </div>
+
+                    <div class="control-item">
+                        <label for="venus-speed">Venus</label>
+                        <div class="slider-container">
+                            <input type="range" id="venus-speed" min="0" max="3" step="0.1" value="1" class="slider">
+                            <span class="slider-value" id="venus-speed-value">1.0x</span>
+                        </div>
+                    </div>
+
+                    <div class="control-item">
+                        <label for="earth-speed">Earth</label>
+                        <div class="slider-container">
+                            <input type="range" id="earth-speed" min="0" max="3" step="0.1" value="1" class="slider">
+                            <span class="slider-value" id="earth-speed-value">1.0x</span>
+                        </div>
+                    </div>
+
+                    <div class="control-item">
+                        <label for="mars-speed">Mars</label>
+                        <div class="slider-container">
+                            <input type="range" id="mars-speed" min="0" max="3" step="0.1" value="1" class="slider">
+                            <span class="slider-value" id="mars-speed-value">1.0x</span>
+                        </div>
+                    </div>
+
+                    <div class="control-item">
+                        <label for="jupiter-speed">Jupiter</label>
+                        <div class="slider-container">
+                            <input type="range" id="jupiter-speed" min="0" max="3" step="0.1" value="1" class="slider">
+                            <span class="slider-value" id="jupiter-speed-value">1.0x</span>
+                        </div>
+                    </div>
+
+                    <div class="control-item">
+                        <label for="saturn-speed">Saturn</label>
+                        <div class="slider-container">
+                            <input type="range" id="saturn-speed" min="0" max="3" step="0.1" value="1" class="slider">
+                            <span class="slider-value" id="saturn-speed-value">1.0x</span>
+                        </div>
+                    </div>
+
+                    <div class="control-item">
+                        <label for="uranus-speed">Uranus</label>
+                        <div class="slider-container">
+                            <input type="range" id="uranus-speed" min="0" max="3" step="0.1" value="1" class="slider">
+                            <span class="slider-value" id="uranus-speed-value">1.0x</span>
+                        </div>
+                    </div>
+
+                    <div class="control-item">
+                        <label for="neptune-speed">Neptune</label>
+                        <div class="slider-container">
+                            <input type="range" id="neptune-speed" min="0" max="3" step="0.1" value="1" class="slider">
+                            <span class="slider-value" id="neptune-speed-value">1.0x</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Visual Controls -->
+                <section class="control-group">
+                    <h3>Visual Settings</h3>
+                    
+                    <div class="control-item">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="show-orbits" checked>
+                            <span class="checkbox-custom"></span>
+                            Show Orbit Paths
+                        </label>
+                    </div>
+
+                    <div class="control-item">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="show-labels" checked>
+                            <span class="checkbox-custom"></span>
+                            Show Planet Labels
+                        </label>
+                    </div>
+
+                    <div class="control-item">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="show-stars" checked>
+                            <span class="checkbox-custom"></span>
+                            Background Stars
+                        </label>
+                    </div>
+
+                    <div class="control-item">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="dark-mode">
+                            <span class="checkbox-custom"></span>
+                            Dark Mode
+                        </label>
+                    </div>
+                </section>
+
+                <!-- Camera Controls -->
+                <section class="control-group">
+                    <h3>Camera</h3>
+                    
+                    <div class="control-item">
+                        <button class="control-button secondary" id="reset-camera">Reset View</button>
+                        <button class="control-button secondary" id="top-view">Top View</button>
+                    </div>
+                </section>
+            </div>
+        </aside>
+
+        <!-- Info Panel -->
+        <div class="info-panel" id="info-panel">
+            <button class="info-toggle" id="info-toggle" aria-label="Toggle info panel">?</button>
+            <div class="info-content">
+                <h3>How to Use</h3>
+                <ul>
+                    <li><strong>Mouse:</strong> Click and drag to rotate view</li>
+                    <li><strong>Scroll:</strong> Zoom in and out</li>
+                    <li><strong>Planet Speeds:</strong> Adjust individual orbital speeds</li>
+                    <li><strong>Global Speed:</strong> Control overall animation speed</li>
+                    <li><strong>Click Planet:</strong> Focus camera on planet</li>
+                </ul>
+                <p class="credits">Built with Three.js • Solar System Simulation</p>
+            </div>
+        </div>
+
+        <!-- Planet Info Tooltip -->
+        <div class="planet-tooltip" id="planet-tooltip">
+            <h4 id="tooltip-name"></h4>
+            <p id="tooltip-info"></p>
+        </div>
+    </div>
+
+    <script type="module" src="src/js/main.js"></script>
+</body>
+</html>
