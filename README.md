@@ -4,7 +4,7 @@ A stunning, interactive 3D solar system built with Three.js, featuring real-time
 
 ## 🚀 Live Demo
 
-**[View Live Demo →](https://your-solar-system.vercel.app)**
+**[View Live Demo →](https://solarsystem-taupe-xi.vercel.app/)**
 
 ## ✨ Features
 
