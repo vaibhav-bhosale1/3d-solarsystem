@@ -2,11 +2,9 @@
 
 A stunning, interactive 3D solar system built with Three.js, featuring real-time speed controls, realistic planet materials, and immersive visual effects.
 
-![Solar System Preview](https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=800&h=400&fit=crop)
-
 ## 🚀 Live Demo
 
-**[View Live Demo →](https://your-solar-system.vercel.app)**
+**[View Live Demo →](https://solarsystem-taupe-xi.vercel.app/)**
 
 ## ✨ Features
 
